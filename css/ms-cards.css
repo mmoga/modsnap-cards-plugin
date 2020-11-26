@@ -28,19 +28,24 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 2rem;
+  padding: 1.2rem;
   background: #1f1f1f6c;
-  color: white;
 }
 
 .ms-cards__container > .ms-cards__wrapper figure > figcaption:hover {
   color: rgb(165, 165, 165);
 }
-
+.ms-cards__container > .ms-cards__wrapper figure > figcaption p {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 0.33em;
+}
 .ms-cards__container > .ms-cards__wrapper figure > figcaption h3 {
-  font-size: 18px;
+  font-size: 22px;
   margin: 0 0 1rem;
   color: white;
+  text-transform: uppercase;
+  margin-bottom: 0.33em;
 }
 
 .ms-cards__container > .ms-cards__wrapper .ms-card-details {

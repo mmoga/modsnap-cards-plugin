@@ -215,12 +215,13 @@ function ms_block_render($attr, $content)
         $whatToShow .=
           '<figure><img src="' .
           esc_url($featured_img_url) .
-          '" alt="" width="300" height="300" />
+          '" alt="" width="350" height="350" />
           <figcaption>
+          <p>Something goes here</p>
           <h3>' .
           get_the_title() .
           '</h3>
-          <p>Something goes here</p>
+          <div>💋</div>
           </figcaption>
           </figure>
           ';
