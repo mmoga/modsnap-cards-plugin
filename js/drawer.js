@@ -1,34 +1,28 @@
 window.onload = function () {
+  const cards = document.querySelectorAll('.ms-card');
   const figcaption = document.querySelectorAll(
     '.ms-cards__wrapper figure figcaption'
   );
-  const details = document.querySelectorAll(
-    '.ms-cards__container > .ms-cards__wrapper .ms-card-details'
-  );
-
-  let isOpen = false;
 
   figcaption.forEach((e) => {
     e.addEventListener('click', function () {
-      const itsDeets = this.parentNode.parentNode.querySelector(
-        '.ms-card-details'
-      );
-      if (!isOpen) {
-        isOpen = true;
-        itsDeets.style.display = 'block';
+      const parentCard = this.parentNode.parentNode;
+
+      if (!parentCard.classList.contains('card-active')) {
+        parentCard.classList.add('card-active');
       } else {
-        isOpen = false;
-        // Everything that is not itsDeets should close and it's figure dimmed
-        details.forEach((i) => (i.style.display = 'none'));
+        // Everything that is not cardDetails should close and it's figure dimmed
+        parentCard.classList.remove('card-active');
       }
     });
   });
 
-  // Hide the nav bar if you click outside of it
-
-  //     document.addEventListener('click', function (e) {
-  //         if (e.target !== details && !details.contains(e.target)) {
-  //             alert('wooo');
-  //         }
-  //     });
+  // Close non-clicked items
+  document.addEventListener('click', function (e) {
+    cards.forEach((c) => {
+      if (c.target !== c && !c.contains(e.target)) {
+        c.classList.remove('card-active');
+      }
+    });
+  });
 };
