@@ -76,9 +76,12 @@
   left: 0;
   width: 100%;
   background-color: white;
-  padding: 2rem;
+  padding-top: 1.2rem;
   z-index: 1;
-  outline: 1px solid;
+}
+
+.ms-card-details p {
+  margin-bottom: 0.4em;
 }
 
 .ms-close-button {
@@ -105,20 +108,67 @@
 
 .ms-card-details > .details__wrapper {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) {
+  .ms-card-details > .details__wrapper {
+    padding-right: 45px;
+  }
 }
 
 .ms-card-details > .details__wrapper > .details--left {
-  flex-grow: 2;
+  width: 60%;
+  padding-left: 0.4rem;
 }
 
 .ms-card-details > .details__wrapper > .details--right {
-  flex-grow: 1;
+  width: 40%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .ms-card-details .details-heading {
   text-transform: uppercase;
 }
 
-.ms-card-details > .title {
+.ms-card-details .title {
   margin: 0;
+}
+
+.ms-card-details .details-highlights .highlights-headings {
+  margin: 0;
+  font-family: serif;
+  color: #ffbc00;
+}
+
+/* May need to do something for this to match the theme, so you don't
+have to go into the code. */
+.ms-card-details .details-highlights .highlights-content {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ms-card-details .details-highlights ul {
+  list-style: none;
+  font-family: serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+.ms-card-details .details-highlights ul li {
+  position: relative;
+  margin-bottom: 0.6em;
+}
+
+.ms-card-details .details-highlights ul li::before {
+  content: ">";
+  position: absolute;
+  left: -1em;
+  color: #ffbc00;
 }
