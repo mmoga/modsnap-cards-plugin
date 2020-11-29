@@ -97,10 +97,6 @@ class FirstBlockEdit extends Component {
 
     return (
       <BlockControls>
-        <AlignmentToolbar
-          value={attributes.textAlignment}
-          onChange={(newalign) => setAttributes({ textAlignment: newalign })}
-        />
         <Toolbar>
           <Button
             label={this.state.editMode ? 'Preview' : 'Edit'}
@@ -235,9 +231,6 @@ registerBlockType('modsnap/cards-grid', {
     selectedCategoryId: {
       type: 'number',
     },
-  },
-  supports: {
-    align: ['wide', 'full'],
   },
   edit: withSelect((select) =>
     // const currentPostId = select('core/editor').getCurrentPostId();

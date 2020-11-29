@@ -2,28 +2,27 @@
   padding: 3rem;
 }
 
-.ms-cards__container > .ms-cards__wrapper {
+.ms-cards__container .ms-cards__wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 1fr;
   justify-content: center;
-  /* grid-auto-rows: 100px; */
   grid-gap: 20px;
-}
-
-/* .ms-cards__container > .ms-cards__wrapper .ms-card {
-} */
-
-.ms-cards__container > .ms-cards__wrapper figure {
   position: relative;
-  width: 300px;
-  height: 300px;
 }
 
-/* .ms-cards__container > .ms-cards__wrapper figure > img {
-  height: inherit;
+/* .ms-cards__container  .ms-cards__wrapper .ms-card {
 } */
 
-.ms-cards__container > .ms-cards__wrapper figure > figcaption {
+.ms-cards__container .ms-cards__wrapper figure {
+  position: relative;
+}
+
+.ms-cards__container .ms-cards__wrapper figure > img {
+  width: 100%;
+}
+
+.ms-cards__container .ms-cards__wrapper figure > figcaption {
   cursor: pointer;
   position: absolute;
   bottom: 0;
@@ -32,15 +31,15 @@
   background: #1f1f1f6c;
 }
 
-.ms-cards__container > .ms-cards__wrapper figure > figcaption:hover {
+.ms-cards__container .ms-cards__wrapper figure > figcaption:hover {
   color: rgb(165, 165, 165);
 }
-.ms-cards__container > .ms-cards__wrapper figure > figcaption p {
+.ms-cards__container .ms-cards__wrapper figure > figcaption p {
   color: white;
   font-size: 20px;
   margin-bottom: 0.33em;
 }
-.ms-cards__container > .ms-cards__wrapper figure > figcaption h3 {
+.ms-cards__container .ms-cards__wrapper figure > figcaption h3 {
   font-size: 22px;
   margin: 0 0 1rem;
   color: white;
@@ -48,7 +47,7 @@
   margin-bottom: 0.33em;
 }
 
-.ms-cards__container > .ms-cards__wrapper .ms-card-details {
+.ms-cards__container .ms-cards__wrapper .ms-card-details {
   display: none;
   position: absolute;
   right: 0;
@@ -57,6 +56,18 @@
   background-color: white;
   padding: 2rem;
   z-index: 1;
+  outline: 1px solid;
+}
+
+.ms-close-button {
+  cursor: pointer;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCiA8Zz4KICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+CiAgPHJlY3QgZmlsbD0ibm9uZSIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjQwMiIgd2lkdGg9IjU4MiIgeT0iLTEiIHg9Ii0xIi8+CiA8L2c+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPHBvbHlnb24gZmlsbD0iIzk5OTk5OSIgaWQ9InN2Z18xIiBwb2ludHM9IjQ0NS4yLDEwOS4yIDQwMi44LDY2LjggMjU2LDIxMy42IDEwOS4yLDY2LjggNjYuOCwxMDkuMiAyMTMuNiwyNTYgNjYuOCw0MDIuOCAxMDkuMiw0NDUuMiAyNTYsMjk4LjQgNDAyLjgsNDQ1LjIgICA0NDUuMiw0MDIuOCAyOTguNCwyNTYgIi8+CiA8L2c+Cjwvc3ZnPg==);
+  background-size: contain;
+  top: 16px;
+  right: 16px;
 }
 
 .ms-cards__container
@@ -65,3 +76,11 @@
   > .ms-card-details {
   display: block;
 }
+
+.ms-cards__container .ms-cards__wrapper .ms-card.card-active figcaption {
+  display: none;
+}
+
+/* .ms-cards__container .ms-cards__wrapper .ms-card.card-active ~ .ms-card {
+  outline: 2px solid red;
+} */

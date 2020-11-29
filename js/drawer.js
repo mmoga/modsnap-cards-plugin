@@ -1,10 +1,11 @@
 window.onload = function () {
   const cards = document.querySelectorAll('.ms-card');
-  const figcaption = document.querySelectorAll(
+  const figcaptions = document.querySelectorAll(
     '.ms-cards__wrapper figure figcaption'
   );
+  const closeButtons = document.querySelectorAll('.ms-close-button');
 
-  figcaption.forEach((e) => {
+  figcaptions.forEach((e) => {
     e.addEventListener('click', function () {
       const parentCard = this.parentNode.parentNode;
 
@@ -16,6 +17,16 @@ window.onload = function () {
       }
     });
   });
+
+  // Close via button
+  closeButtons.forEach((b) =>
+    b.addEventListener('click', function () {
+      const parentCard = this.parentNode.parentNode;
+      if (parentCard.classList.contains('card-active')) {
+        parentCard.classList.remove('card-active');
+      }
+    })
+  );
 
   // Close non-clicked items
   document.addEventListener('click', function (e) {

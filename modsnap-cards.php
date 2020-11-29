@@ -221,11 +221,12 @@ function ms_block_render($attr, $content)
           <h3>' .
           get_the_title() .
           '</h3>
-          <div>💋</div>
+          <div>🔽</div>
           </figcaption>
           </figure>
           ';
         $whatToShow .= '<div class="ms-card-details">';
+        $whatToShow .= '<div class="ms-close-button"></div>';
         $whatToShow .= "<h3>" . get_the_title() . "</h3>";
         $whatToShow .= get_the_content();
         $whatToShow .= "</div>";
