@@ -215,20 +215,29 @@ function ms_block_render($attr, $content)
         $whatToShow .=
           '<figure><img src="' .
           esc_url($featured_img_url) .
-          '" alt="" width="350" height="350" />
+          '" alt="" width="300" height="300" />
           <figcaption>
           <p>Something goes here</p>
           <h3>' .
           get_the_title() .
           '</h3>
-          <div>🔽</div>
+          <div class="ms-open-button"></div>
           </figcaption>
           </figure>
           ';
         $whatToShow .= '<div class="ms-card-details">';
         $whatToShow .= '<div class="ms-close-button"></div>';
-        $whatToShow .= "<h3>" . get_the_title() . "</h3>";
+        $whatToShow .= '<div class="details__wrapper">';
+        $whatToShow .= '<div class="details--left">';
+        $whatToShow .= '<p class="title">Something goes here</p>';
+        $whatToShow .=
+          '<h3 class="details-heading">' . get_the_title() . "</h3>";
         $whatToShow .= get_the_content();
+        $whatToShow .= "</div>";
+        $whatToShow .= '<div class="details--right">';
+        $whatToShow .= "<p>Details will go here for something</p>";
+        $whatToShow .= "</div>";
+        $whatToShow .= "</div>";
         $whatToShow .= "</div>";
         $whatToShow .= "</div>";
       endwhile;
