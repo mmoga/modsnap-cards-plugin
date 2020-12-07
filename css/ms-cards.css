@@ -1,5 +1,5 @@
 .ms-cards__container {
-  padding: 3rem;
+  /* padding: 3rem; */
 }
 
 .ms-cards__container .ms-cards__wrapper {
@@ -18,7 +18,7 @@
 @supports (display: grid) {
   .ms-cards__container .ms-cards__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, 200px);
     grid-auto-rows: 1fr;
     grid-gap: 20px;
   }
@@ -28,11 +28,16 @@
   }
 }
 
-.ms-cards__container .ms-cards__wrapper figure {
+.ms-cards__container .ms-cards__wrapper .card-image {
   position: relative;
+  width: 200px;
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.ms-cards__container .ms-cards__wrapper figure > img {
+.ms-cards__container .ms-cards__wrapper .card-image > img {
   width: 100%;
 }
 
@@ -49,7 +54,7 @@
   bottom: 0;
 }
 
-.ms-cards__container .ms-cards__wrapper figure > figcaption {
+.ms-cards__container .ms-cards__wrapper .card-image > .image-caption {
   cursor: pointer;
   position: absolute;
   bottom: 0;
@@ -58,24 +63,24 @@
   background: #1f1f1f6c;
 }
 
-.ms-cards__container .ms-cards__wrapper figure > figcaption:hover {
+.ms-cards__container .ms-cards__wrapper .card-image > .image-caption:hover {
   color: rgb(165, 165, 165);
 }
 
 .ms-cards__container
   .ms-cards__wrapper
-  figure
-  > figcaption:hover
+  .card-image
+  > .image-caption:hover
   > .ms-open-button {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSI0MDIiIHdpZHRoPSI1ODIiIHk9Ii0xIiB4PSItMSIvPgogPC9nPgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxwb2x5bGluZSBpZD0ic3ZnXzEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2U9IiNmMmQ1MDAiIHBvaW50cz0iMjEsOC41IDEyLDE3LjUgMyw4LjUgIiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg==);
 }
 
-.ms-cards__container .ms-cards__wrapper figure > figcaption p {
+.ms-cards__container .ms-cards__wrapper .card-image > .image-caption p {
   color: white;
   font-size: 18px;
   margin-bottom: 0;
 }
-.ms-cards__container .ms-cards__wrapper figure > figcaption h3 {
+.ms-cards__container .ms-cards__wrapper .card-image > .image-caption h3 {
   font-size: 20px;
   margin: 0 0 1rem;
   color: white;
@@ -92,10 +97,6 @@
   background-color: white;
   padding-top: 1.2rem;
   z-index: 1;
-}
-
-.ms-card-details p {
-  margin-bottom: 0.4em;
 }
 
 .ms-close-button {
@@ -116,7 +117,7 @@
   display: block;
 }
 
-.ms-cards__container .ms-cards__wrapper .ms-card.card-active figcaption {
+.ms-cards__container .ms-cards__wrapper .ms-card.card-active .image-caption {
   display: none;
 }
 
@@ -134,12 +135,10 @@
 }
 
 .ms-card-details > .details__wrapper > .details--left {
-  width: 60%;
   padding-left: 0.4rem;
 }
 
 .ms-card-details > .details__wrapper > .details--right {
-  width: 40%;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -154,35 +153,20 @@
   margin: 0;
 }
 
-.ms-card-details .details-highlights .highlights-headings {
-  margin: 0;
-  font-family: serif;
-  color: #ffbc00;
+.ms-card-details .details-highlights {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
-/* May need to do something for this to match the theme, so you don't
-have to go into the code. */
-.ms-card-details .details-highlights .highlights-content {
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.ms-card-details .details-highlights ul {
-  list-style: none;
-  font-family: serif;
-  font-weight: 700;
-  margin: 0;
-}
-
-.ms-card-details .details-highlights ul li {
-  position: relative;
-  margin-bottom: 0.6em;
-}
-
-.ms-card-details .details-highlights ul li::before {
-  content: ">";
-  position: absolute;
-  left: -1em;
-  color: #ffbc00;
+@media screen and (min-width: 768px) {
+  .ms-card-details .details-content {
+    padding-right: 1em;
+  }
+  .ms-card-details > .details__wrapper > .details--left {
+    width: 60%;
+  }
+  .ms-card-details > .details__wrapper > .details--right {
+    width: 40%;
+  }
 }

@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Modsnap Custom Cards
- * Description: A custom plugin made for Dindy with ❤️. This imitates AWSM Team cards, but makes it more adpated for what Modsnap needs.
- * Version: 1.0
+ * Description: A custom plugin made for Dindy with ❤️. This extends Toolset with cards.
+ * Version: 1.1
  * Author: Matthew Mogavero
  * Author URI: https://mogavero.dev
  * Text domain: modsnap-cards
@@ -19,6 +19,10 @@ function modsnap_cards_external()
   );
   wp_enqueue_script("modsnap-cards", plugin_dir_url(__FILE__) . "js/drawer.js");
 }
+/*
+
+******* Old stuff *********
+***************************
 
 // Register card post type
 add_action("init", "modsnap_register_post_type");
@@ -134,6 +138,7 @@ function modsnap_register_taxonomy()
 
   register_taxonomy("modsnap_category", ["modsnap_card"], $args);
 }
+*/
 
 add_action("init", function () {
   wp_register_script(
@@ -145,12 +150,6 @@ add_action("init", function () {
     "editor_script" => "ms-block-js",
     "render_callback" => "ms_block_render",
     "attributes" => [
-      "myRichHeading" => [
-        "type" => "string",
-      ],
-      "myRichText" => [
-        "type" => "string",
-      ],
       "textAlignment" => [
         "type" => "string",
         "default" => "center",
@@ -158,18 +157,6 @@ add_action("init", function () {
       "toggle" => [
         "type" => "boolean",
         "default" => true,
-      ],
-      "favoriteAnimal" => [
-        "type" => "string",
-        "default" => "dogs",
-      ],
-      "favoriteColor" => [
-        "type" => "string",
-        "default" => "#DDDDDD",
-      ],
-      "activateLasers" => [
-        "type" => "boolean",
-        "default" => false,
       ],
       "selectedPostId" => [
         "type" => "number",
@@ -192,11 +179,11 @@ function ms_block_render($attr, $content)
       return $whatToShow;
     }
     $args = [
-      "post_type" => "modsnap_card",
+      "post_type" => "deal",
       "post_status" => "publish",
       "tax_query" => [
         [
-          "taxonomy" => "modsnap_category",
+          "taxonomy" => "experience-type",
           "field" => "term_id",
           "terms" => $categoryId,
         ],
@@ -210,45 +197,65 @@ function ms_block_render($attr, $content)
       $whatToShow .= '<div class="ms-cards__wrapper">';
       while ($query->have_posts()):
         $query->the_post();
-        $featured_img_url = get_the_post_thumbnail_url(get_the_ID(), "medium");
+        $dealImageUrl = get_post_meta(get_the_ID(), "wpcf-deal-image", true);
         $whatToShow .= '<div class="ms-card">';
         $whatToShow .=
-          '<figure><img src="' .
-          esc_url($featured_img_url) .
-          '" alt="" width="300" height="300" />
-          <figcaption>
-          <p>Something goes here</p>
+          '<div class="card-image" style="background-image: url(' .
+          esc_url($dealImageUrl) .
+          ');">
+          <div class="image-caption">
           <h3>' .
           get_the_title() .
           '</h3>
           <div class="ms-open-button"></div>
-          </figcaption>
-          </figure>
+          </div>
+          </div>
           ';
         $whatToShow .= '<div class="ms-card-details">';
         $whatToShow .= '<div class="ms-close-button"></div>';
-        $whatToShow .= '<p class="title">Something goes here</p>';
-        $whatToShow .=
-          '<h3 class="details-heading">' . get_the_title() . "</h3>";
         $whatToShow .= '<div class="details__wrapper">';
         $whatToShow .= '<div class="details--left">';
-        $whatToShow .= get_the_content();
+        $whatToShow .=
+          '<h3 class="details-heading">' . get_the_title() . "</h3>";
+        $whatToShow .=
+          '<p class="details-content">' . get_the_content() . "</p>";
         $whatToShow .= "</div>";
         $whatToShow .= '<div class="details--right">';
         $whatToShow .= '<div class="details-highlights">';
-        $whatToShow .= '<p class="highlights-headings">Details</p>';
-        $whatToShow .= '<p class="highlights-content">Details stuff</p>';
-        $whatToShow .= '<p class="highlights-headings">Details</p>';
-        $whatToShow .= '<p class="highlights-content">Details stuff</p>';
+        // Display "type"
+        $whatToShow .= '<p class="single-dynamic">';
+        $whatToShow .= '<span class="single-sm-heading">Type</span><br/>';
+        $whatToShow .= types_render_field("deal-type");
+        $whatToShow .= "</p>";
+        // Display location
+        $whatToShow .= '<p class="single-dynamic">';
+        $whatToShow .= '<span class="single-sm-heading">Location</span><br/>';
+        $whatToShow .=
+          types_render_field("city") . ", " . types_render_field("state");
+        $whatToShow .= "</p>";
+        // Display transaction value
+        $whatToShow .= '<p class="single-dynamic">';
+        $whatToShow .=
+          '<span class="single-sm-heading">Transaction Value</span><br/>';
+        $whatToShow .= "$" . types_render_field("transaction-value");
+        $whatToShow .= "</p>";
+        // Display square feet
+        $whatToShow .= '<p class="single-dynamic">';
+        $whatToShow .=
+          '<span class="single-sm-heading">Square Feet</span><br/>';
+        $whatToShow .= types_render_field("sf");
+        $whatToShow .= "</p>";
+        // Display "units"
+        $whatToShow .= '<p class="single-dynamic">';
+        $whatToShow .= '<span class="single-sm-heading">Units</span><br/>';
+        $whatToShow .= types_render_field("units");
+        $whatToShow .= "</p>";
+
+        // End .details-highlights
         $whatToShow .= "</div>";
-        $whatToShow .= '<div class="details-highlights">';
-        $whatToShow .= "<ul>";
-        $whatToShow .= "<li>Details here</li>";
-        $whatToShow .= "<li>Details here</li>";
-        $whatToShow .= "<li>Details here</li>";
-        $whatToShow .= "</ul>";
+        // End .details-right
         $whatToShow .= "</div>";
-        $whatToShow .= "</div>";
+
         $whatToShow .= "</div>";
         $whatToShow .= "</div>";
         $whatToShow .= "</div>";

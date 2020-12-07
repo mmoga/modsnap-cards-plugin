@@ -1,7 +1,7 @@
 window.onload = function () {
   const cards = document.querySelectorAll('.ms-card');
   const figcaptions = document.querySelectorAll(
-    '.ms-cards__wrapper figure figcaption'
+    '.ms-cards__wrapper .card-image .image-caption'
   );
   const closeButtons = document.querySelectorAll('.ms-close-button');
 
