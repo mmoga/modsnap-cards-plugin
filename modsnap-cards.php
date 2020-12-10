@@ -204,7 +204,7 @@ function ms_block_render($attr, $content)
           esc_url($dealImageUrl) .
           ');">
           <div class="image-caption">
-          <h3>' .
+          <h3 class="image-caption-title">' .
           get_the_title() .
           '</h3>
           <div class="ms-open-button"></div>
@@ -223,10 +223,12 @@ function ms_block_render($attr, $content)
         $whatToShow .= '<div class="details--right">';
         $whatToShow .= '<div class="details-highlights">';
         // Display "type"
-        $whatToShow .= '<p class="single-dynamic">';
-        $whatToShow .= '<span class="single-sm-heading">Type</span><br/>';
-        $whatToShow .= types_render_field("deal-type");
-        $whatToShow .= "</p>";
+        if (types_render_field("deal-type")) {
+          $whatToShow .= '<p class="single-dynamic">';
+          $whatToShow .= '<span class="single-sm-heading">Type</span><br/>';
+          $whatToShow .= types_render_field("deal-type");
+          $whatToShow .= "</p>";
+        }
         // Display location
         $whatToShow .= '<p class="single-dynamic">';
         $whatToShow .= '<span class="single-sm-heading">Location</span><br/>';
@@ -240,11 +242,13 @@ function ms_block_render($attr, $content)
         $whatToShow .= "$" . types_render_field("transaction-value");
         $whatToShow .= "</p>";
         // Display square feet
-        $whatToShow .= '<p class="single-dynamic">';
-        $whatToShow .=
-          '<span class="single-sm-heading">Square Feet</span><br/>';
-        $whatToShow .= types_render_field("sf");
-        $whatToShow .= "</p>";
+        if (types_render_field("sf")) {
+          $whatToShow .= '<p class="single-dynamic">';
+          $whatToShow .=
+            '<span class="single-sm-heading">Square Feet</span><br/>';
+          $whatToShow .= types_render_field("sf");
+          $whatToShow .= "</p>";
+        }
         // Display "units"
         $whatToShow .= '<p class="single-dynamic">';
         $whatToShow .= '<span class="single-sm-heading">Units</span><br/>';

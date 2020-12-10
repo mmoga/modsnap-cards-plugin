@@ -1,5 +1,5 @@
 .ms-cards__container {
-  /* padding: 3rem; */
+  margin: 50px 0 20vh !important;
 }
 
 .ms-cards__container .ms-cards__wrapper {
@@ -18,9 +18,9 @@
 @supports (display: grid) {
   .ms-cards__container .ms-cards__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-columns: repeat(auto-fit, 350px);
     grid-auto-rows: 1fr;
-    grid-gap: 20px;
+    grid-gap: 30px;
   }
   .ms-cards__container .ms-cards__wrapper .ms-card {
     width: 100%;
@@ -30,8 +30,8 @@
 
 .ms-cards__container .ms-cards__wrapper .card-image {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 350px;
+  height: 350px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -55,24 +55,20 @@
 }
 
 .ms-cards__container .ms-cards__wrapper .card-image > .image-caption {
+  --opacity: 0.88;
   cursor: pointer;
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 0.2rem 0.8rem;
-  background: #1f1f1f6c;
+  padding: 15px 0;
+  background: rgb(0, 39, 56);
+  opacity: var(--opacity);
+  transition: all ease 0.3s;
 }
 
 .ms-cards__container .ms-cards__wrapper .card-image > .image-caption:hover {
+  --opacity: 1;
   color: rgb(165, 165, 165);
-}
-
-.ms-cards__container
-  .ms-cards__wrapper
-  .card-image
-  > .image-caption:hover
-  > .ms-open-button {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSI0MDIiIHdpZHRoPSI1ODIiIHk9Ii0xIiB4PSItMSIvPgogPC9nPgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxwb2x5bGluZSBpZD0ic3ZnXzEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2U9IiNmMmQ1MDAiIHBvaW50cz0iMjEsOC41IDEyLDE3LjUgMyw4LjUgIiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg==);
 }
 
 .ms-cards__container .ms-cards__wrapper .card-image > .image-caption p {
@@ -80,16 +76,24 @@
   font-size: 18px;
   margin-bottom: 0;
 }
-.ms-cards__container .ms-cards__wrapper .card-image > .image-caption h3 {
-  font-size: 20px;
-  margin: 0 0 1rem;
-  color: white;
+.ms-cards__container
+  .ms-cards__wrapper
+  .card-image
+  > .image-caption
+  .image-caption-title {
   text-transform: uppercase;
-  margin-bottom: 0.33em;
+  margin-bottom: 5px;
+  color: #ffffff;
+  font-family: "Source Sans Pro", Sans-serif;
+  font-size: calc(1.5rem - 0.1vw);
+  font-weight: 700;
+  text-align: center;
+  line-height: 33px;
 }
 
 .ms-cards__container .ms-cards__wrapper .ms-card-details {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
   position: absolute;
   right: 0;
   left: 0;
@@ -97,24 +101,25 @@
   background-color: white;
   padding-top: 1.2rem;
   z-index: 1;
+  transition: all linear 0.2s;
+}
+.ms-cards__container
+  .ms-cards__wrapper
+  .ms-card.card-active
+  > .ms-card-details {
+  visibility: visible;
+  opacity: 1;
 }
 
 .ms-close-button {
   cursor: pointer;
   position: absolute;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCiA8Zz4KICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+CiAgPHJlY3QgZmlsbD0ibm9uZSIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjQwMiIgd2lkdGg9IjU4MiIgeT0iLTEiIHg9Ii0xIi8+CiA8L2c+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPHBvbHlnb24gZmlsbD0iIzk5OTk5OSIgaWQ9InN2Z18xIiBwb2ludHM9IjQ0NS4yLDEwOS4yIDQwMi44LDY2LjggMjU2LDIxMy42IDEwOS4yLDY2LjggNjYuOCwxMDkuMiAyMTMuNiwyNTYgNjYuOCw0MDIuOCAxMDkuMiw0NDUuMiAyNTYsMjk4LjQgNDAyLjgsNDQ1LjIgICA0NDUuMiw0MDIuOCAyOTguNCwyNTYgIi8+CiA8L2c+Cjwvc3ZnPg==);
   background-size: contain;
   top: 16px;
   right: 16px;
-}
-
-.ms-cards__container
-  .ms-cards__wrapper
-  .ms-card.card-active
-  > .ms-card-details {
-  display: block;
 }
 
 .ms-cards__container .ms-cards__wrapper .ms-card.card-active .image-caption {
@@ -157,6 +162,9 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+}
+.ms-card-details .details-highlights > * {
+  margin: 10px 20px 0;
 }
 
 @media screen and (min-width: 768px) {
