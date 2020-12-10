@@ -150,10 +150,6 @@ add_action("init", function () {
     "editor_script" => "ms-block-js",
     "render_callback" => "ms_block_render",
     "attributes" => [
-      "textAlignment" => [
-        "type" => "string",
-        "default" => "center",
-      ],
       "toggle" => [
         "type" => "boolean",
         "default" => true,
