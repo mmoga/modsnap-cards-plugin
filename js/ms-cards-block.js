@@ -76,10 +76,6 @@ class FirstBlockEdit extends Component {
 
   render() {
     const { attributes, setAttributes } = this.props;
-    const alignmentClass =
-      attributes.textAlignment != null
-        ? `has-text-align-${attributes.textAlignment}`
-        : '';
     const choices = [];
 
     if (this.props.taxonomies) {
@@ -96,17 +92,29 @@ class FirstBlockEdit extends Component {
       // this.getInspectorControls(),
       this.getBlockControls(),
 
-      <div className={alignmentClass}>
+      <div>
         {this.state.editMode && (
           <Fragment>
-            <SelectControl
-              label={__('Selected category', 'modsnap')}
+            {/* Add a select for the taxonomy types. 
+                  Then get the category ID of it, like the select below */}
+            {/* <SelectControl
+              label={__('Selected type', 'modsnap')}
               options={choices}
               value={attributes.selectedCategoryId}
               onChange={(newval) =>
                 setAttributes({ selectedCategoryId: parseInt(newval) })
               }
-            />
+            /> */}
+            {true && (
+              <SelectControl
+                label={__('Selected category', 'modsnap')}
+                options={choices}
+                value={attributes.selectedCategoryId}
+                onChange={(newval) =>
+                  setAttributes({ selectedCategoryId: parseInt(newval) })
+                }
+              />
+            )}
           </Fragment>
         )}
         {!this.state.editMode && (
@@ -128,24 +136,21 @@ class FirstBlockEdit extends Component {
 }
 
 registerBlockType('modsnap/cards-grid', {
-  title: 'Modsnap Cards',
+  title: 'Modsnap Cards Grid',
   icon: 'grid-view',
   category: 'common',
-  description: __('Add a card grid by Deal category.', 'modsnap'),
+  description: __('Add a grid of cards by Deal category.', 'modsnap'),
   keywords: [__('grid', 'modsnap'), __('card', 'modsnap')],
   attributes: {
-    textAlignment: {
-      type: 'string',
-      default: 'center',
-    },
-    selectedPostId: {
-      type: 'number',
-    },
+    // selectedPostId: {
+    //   type: 'number',
+    // },
     selectedCategoryId: {
       type: 'number',
     },
   },
   edit: withSelect((select) => ({
+    // financial-type
     taxonomies: select('core').getEntityRecords('taxonomy', 'experience-type'),
   }))(FirstBlockEdit),
 
