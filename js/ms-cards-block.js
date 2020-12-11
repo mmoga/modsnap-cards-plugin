@@ -1,6 +1,3 @@
-/* eslint-disable react/display-name */
-// https://awhitepixel.com/blog/wordpress-gutenberg-create-custom-block-tutorial/
-
 const { registerBlockType } = wp.blocks;
 const { Component, Fragment } = wp.element;
 const { __, _e } = wp.i18n;
@@ -32,6 +29,8 @@ class MSBlockEdit extends Component {
     };
   }
 
+  // Set up block controls
+  // This may be unnecessary
   getBlockControls = () => {
     const { attributes, setAttributes } = this.props;
 
@@ -54,6 +53,7 @@ class MSBlockEdit extends Component {
     const choicesDeals = [];
     const choicesFinancial = [];
 
+    // Get "deals" categories
     if (this.props.taxonomiesDeal) {
       choicesDeals.push({
         value: 0,
@@ -61,13 +61,13 @@ class MSBlockEdit extends Component {
         disabled: true,
       });
       this.props.taxonomiesDeal.forEach((category) => {
-        // console.log(category);
         choicesDeals.push({ value: category.id, label: category.name });
       });
     } else {
       choicesDeals.push({ value: 0, label: __('Loading...', 'modsnap') });
     }
 
+    // Get financial-type categories
     if (this.props.taxonomiesFinancial) {
       choicesFinancial.push({
         value: 0,
@@ -75,7 +75,6 @@ class MSBlockEdit extends Component {
         disabled: true,
       });
       this.props.taxonomiesFinancial.forEach((category) => {
-        // console.log(category);
         choicesFinancial.push({ value: category.id, label: category.name });
       });
     } else {
@@ -85,7 +84,7 @@ class MSBlockEdit extends Component {
     return [
       // this.getInspectorControls(),
       this.getBlockControls(),
-
+      // If in edit mode, display controls
       <div>
         {this.state.editMode && (
           <Fragment>
@@ -121,7 +120,6 @@ class MSBlockEdit extends Component {
                 value={attributes.selectedCategoryId}
                 onChange={(newval) => {
                   setAttributes({ selectedCategoryId: parseInt(newval) });
-                  console.log(attributes.selectedDealType);
                 }}
               />
             )}
@@ -131,9 +129,7 @@ class MSBlockEdit extends Component {
               label={__('Post limit', 'modsnap')}
               type="number"
               value={attributes.setCardLimit}
-              onChange={(newval) =>
-                setAttributes({ setCardLimit: parseInt(newval) })
-              }
+              onChange={(newval) => setAttributes({ setCardLimit: newval })}
               min={3}
             />
           </Fragment>
@@ -143,7 +139,6 @@ class MSBlockEdit extends Component {
             isColumnLayout
             block={this.props.name}
             attributes={{
-              // selectedPostId: attributes.selectedPostId,
               selectedCategoryId: attributes.selectedCategoryId,
               setCardLimit: attributes.setCardLimit,
               selectedDealType: attributes.selectedDealType,
@@ -162,9 +157,6 @@ registerBlockType('modsnap/cards-grid', {
   description: __('Add a grid of cards by Deal category.', 'modsnap'),
   keywords: [__('grid', 'modsnap'), __('card', 'modsnap')],
   attributes: {
-    // selectedPostId: {
-    //   type: 'number',
-    // },
     selectedDealType: {
       type: 'string',
     },
@@ -181,6 +173,7 @@ registerBlockType('modsnap/cards-grid', {
       'taxonomy',
       'financial-type'
     ),
+    // experience-type ("deal")
     taxonomiesDeal: select('core').getEntityRecords(
       'taxonomy',
       'experience-type'

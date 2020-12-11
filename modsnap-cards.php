@@ -40,7 +40,7 @@ add_action("init", function () {
       // ],
       "setCardLimit" => [
         "type" => "number",
-        "default" => null,
+        "default" => 3,
       ],
       "selectedCategoryId" => [
         "type" => "number",
@@ -56,7 +56,6 @@ add_action("init", function () {
 
 function ms_block_render($attr, $content)
 {
-  print_r($attr["selectedDealType"]);
   $whatToShow = "";
   if ($attr["selectedCategoryId"] > 0) {
     $categoryId = $attr["selectedCategoryId"];
@@ -80,7 +79,6 @@ function ms_block_render($attr, $content)
 
     if ($query->have_posts()):
       $i = 1;
-      print_r($attr["setCardLimit"]);
       $whatToShow = '<div class="ms-cards__container">';
       $whatToShow .= '<div class="ms-cards__wrapper">';
       while ($query->have_posts() && $i <= $attr["setCardLimit"]):
