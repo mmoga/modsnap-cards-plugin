@@ -17,45 +17,20 @@ const {
   TextControl,
   PanelBody,
   PanelRow,
-  CheckboxControl,
   SelectControl,
-  ColorPicker,
   Button,
   Toolbar,
   Placeholder,
   Disabled,
 } = wp.components;
 
-class FirstBlockEdit extends Component {
+class MSBlockEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
       editMode: true,
     };
   }
-
-  // getInspectorControls = () => {
-  //   const { attributes, setAttributes } = this.props;
-  //   return (
-  //     <InspectorControls>
-  //       <PanelBody
-  //         title={__('Most awesome settings ever', 'modsnap')}
-  //         initialOpen
-  //       >
-  //         <PanelRow>
-  //           <TextControl
-  //             label={__('Type in post ID', 'modsnap')}
-  //             type="number"
-  //             value={attributes.selectedPostId}
-  //             onChange={(newval) =>
-  //               setAttributes({ selectedPostId: parseInt(newval) })
-  //             }
-  //           />
-  //         </PanelRow>{' '}
-  //       </PanelBody>
-  //     </InspectorControls>
-  //   );
-  // };
 
   getBlockControls = () => {
     const { attributes, setAttributes } = this.props;
@@ -76,16 +51,35 @@ class FirstBlockEdit extends Component {
 
   render() {
     const { attributes, setAttributes } = this.props;
-    const choices = [];
+    const choicesDeals = [];
+    const choicesFinancial = [];
 
-    if (this.props.taxonomies) {
-      choices.push({ value: 0, label: __('Select a category', 'modsnap') });
-      this.props.taxonomies.forEach((category) => {
+    if (this.props.taxonomiesDeal) {
+      choicesDeals.push({
+        value: 0,
+        label: __('Select a category', 'modsnap'),
+        disabled: true,
+      });
+      this.props.taxonomiesDeal.forEach((category) => {
         // console.log(category);
-        choices.push({ value: category.id, label: category.name });
+        choicesDeals.push({ value: category.id, label: category.name });
       });
     } else {
-      choices.push({ value: 0, label: __('Loading...', 'modsnap') });
+      choicesDeals.push({ value: 0, label: __('Loading...', 'modsnap') });
+    }
+
+    if (this.props.taxonomiesFinancial) {
+      choicesFinancial.push({
+        value: 0,
+        label: __('Select a category', 'modsnap'),
+        disabled: true,
+      });
+      this.props.taxonomiesFinancial.forEach((category) => {
+        // console.log(category);
+        choicesFinancial.push({ value: category.id, label: category.name });
+      });
+    } else {
+      choicesFinancial.push({ value: 0, label: __('Loading...', 'modsnap') });
     }
 
     return [
@@ -97,24 +91,51 @@ class FirstBlockEdit extends Component {
           <Fragment>
             {/* Add a select for the taxonomy types. 
                   Then get the category ID of it, like the select below */}
-            {/* <SelectControl
-              label={__('Selected type', 'modsnap')}
-              options={choices}
-              value={attributes.selectedCategoryId}
-              onChange={(newval) =>
-                setAttributes({ selectedCategoryId: parseInt(newval) })
-              }
-            /> */}
-            {true && (
+            <SelectControl
+              label={__('Select a type of deal', 'modsnap')}
+              options={[
+                { value: null, label: 'Select a type', disabled: true },
+                { value: 'experience-type', label: 'Deal' },
+                { value: 'financial-type', label: 'Financial' },
+              ]}
+              value={attributes.selectedDealType}
+              onChange={(newval) => {
+                setAttributes({ selectedDealType: newval });
+                setAttributes({ selectedCategoryId: 0 });
+              }}
+            />
+
+            {attributes.selectedDealType === 'experience-type' ? (
               <SelectControl
-                label={__('Selected category', 'modsnap')}
-                options={choices}
+                label={__('Selected category ', 'modsnap')}
+                options={choicesDeals}
                 value={attributes.selectedCategoryId}
                 onChange={(newval) =>
                   setAttributes({ selectedCategoryId: parseInt(newval) })
                 }
               />
+            ) : (
+              <SelectControl
+                label={__('Selected category ', 'modsnap')}
+                options={choicesFinancial}
+                value={attributes.selectedCategoryId}
+                onChange={(newval) => {
+                  setAttributes({ selectedCategoryId: parseInt(newval) });
+                  console.log(attributes.selectedDealType);
+                }}
+              />
             )}
+
+            <TextControl
+              style={{ maxWidth: '100px' }}
+              label={__('Post limit', 'modsnap')}
+              type="number"
+              value={attributes.setCardLimit}
+              onChange={(newval) =>
+                setAttributes({ setCardLimit: parseInt(newval) })
+              }
+              min={3}
+            />
           </Fragment>
         )}
         {!this.state.editMode && (
@@ -122,11 +143,10 @@ class FirstBlockEdit extends Component {
             isColumnLayout
             block={this.props.name}
             attributes={{
-              // myRichHeading: attributes.myRichHeading,
-              // myRichText: attributes.myRichText,
-              textAlignment: attributes.textAlignment,
-              selectedPostId: attributes.selectedPostId,
+              // selectedPostId: attributes.selectedPostId,
               selectedCategoryId: attributes.selectedCategoryId,
+              setCardLimit: attributes.setCardLimit,
+              selectedDealType: attributes.selectedDealType,
             }}
           />
         )}
@@ -145,14 +165,27 @@ registerBlockType('modsnap/cards-grid', {
     // selectedPostId: {
     //   type: 'number',
     // },
+    selectedDealType: {
+      type: 'string',
+    },
     selectedCategoryId: {
+      type: 'number',
+    },
+    setCardLimit: {
       type: 'number',
     },
   },
   edit: withSelect((select) => ({
     // financial-type
-    taxonomies: select('core').getEntityRecords('taxonomy', 'experience-type'),
-  }))(FirstBlockEdit),
+    taxonomiesFinancial: select('core').getEntityRecords(
+      'taxonomy',
+      'financial-type'
+    ),
+    taxonomiesDeal: select('core').getEntityRecords(
+      'taxonomy',
+      'experience-type'
+    ),
+  }))(MSBlockEdit),
 
   save: () => null,
 });
