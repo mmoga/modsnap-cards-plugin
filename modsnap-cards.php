@@ -30,14 +30,6 @@ add_action("init", function () {
     "editor_script" => "ms-block-js",
     "render_callback" => "ms_block_render",
     "attributes" => [
-      // "toggle" => [
-      //   "type" => "boolean",
-      //   "default" => true,
-      // ],
-      // "selectedPostId" => [
-      //   "type" => "number",
-      //   "default" => 0,
-      // ],
       "setCardLimit" => [
         "type" => "number",
         "default" => 3,
