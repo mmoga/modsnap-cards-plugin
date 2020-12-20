@@ -126,7 +126,7 @@ class MSBlockEdit extends Component {
 
             <TextControl
               style={{ maxWidth: '100px' }}
-              label={__('Post limit', 'modsnap')}
+              label={__('Post limit (blank defaults to 3) ', 'modsnap')}
               type="number"
               value={attributes.setCardLimit}
               onChange={(newval) => setAttributes({ setCardLimit: newval })}
