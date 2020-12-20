@@ -10,7 +10,7 @@
 }
 
 .ms-cards__container .ms-cards__wrapper .ms-card {
-  padding: 15px;
+  padding: 15px 0;
 }
 
 .ms-cards__container .ms-cards__wrapper .ms-card.card-active {
