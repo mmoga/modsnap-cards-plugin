@@ -5,7 +5,7 @@
 .ms-cards__container .ms-cards__wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
 }
 
@@ -152,7 +152,7 @@
 
 .ms-card-details .details-highlights {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   justify-content: space-between;
 }
 .ms-card-details .details-highlights > * {
@@ -160,6 +160,9 @@
 }
 
 @media screen and (min-width: 768px) {
+  .ms-cards__container .ms-cards__wrapper {
+    justify-content: space-evenly;
+  }
   .ms-card-details .details-content {
     padding-right: 1em;
   }
@@ -169,9 +172,15 @@
   .ms-card-details > .details__wrapper > .details--right {
     width: 40%;
   }
+  .ms-card-details .details-highlights {
+    flex-flow: row nowrap;
+  }
 }
 
 @media screen and (min-width: 1024px) {
+  .ms-cards__container .ms-cards__wrapper {
+    justify-content: space-between;
+  }
   .ms-cards__container .ms-cards__wrapper .ms-card-details {
     max-height: 200px;
   }

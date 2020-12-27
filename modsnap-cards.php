@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Modsnap Custom Cards
  * Description: A custom plugin made for Dindy with ❤️. This extends Toolset with cards.
- * Version: 1.1
+ * Version: 1.2
  * Author: Matthew Mogavero
  * Author URI: https://mogavero.dev
  * Text domain: modsnap-cards
@@ -93,33 +93,38 @@ function ms_block_render($attr, $content)
         $whatToShow .= '<div class="ms-card-details">';
         $whatToShow .= '<div class="ms-close-button"></div>';
         $whatToShow .= '<div class="details__wrapper">';
+        // Left side
         $whatToShow .= '<div class="details--left">';
         $whatToShow .=
           '<h3 class="details-heading">' . get_the_title() . "</h3>";
         $whatToShow .=
           '<p class="details-content">' . get_the_content() . "</p>";
+        // End .details--left
         $whatToShow .= "</div>";
+        // Right side
         $whatToShow .= '<div class="details--right">';
         $whatToShow .= '<div class="details-highlights">';
-        // Display "type"
-        if (types_render_field("deal-type")) {
-          $whatToShow .= '<p class="single-dynamic">';
-          $whatToShow .= '<span class="single-sm-heading">Type</span><br/>';
-          $whatToShow .= types_render_field("deal-type");
-          $whatToShow .= "</p>";
-        }
+        $whatToShow .= "<div>";
         // Display location
         $whatToShow .= '<p class="single-dynamic">';
         $whatToShow .= '<span class="single-sm-heading">Location</span><br/>';
         $whatToShow .=
           types_render_field("city") . ", " . types_render_field("state");
         $whatToShow .= "</p>";
-        // Display transaction value
-        $whatToShow .= '<p class="single-dynamic">';
-        $whatToShow .=
-          '<span class="single-sm-heading">Transaction Value</span><br/>';
-        $whatToShow .= "$" . types_render_field("transaction-value");
-        $whatToShow .= "</p>";
+        // Display keys
+        if (types_render_field("keys")) {
+          $whatToShow .= '<p class="single-dynamic">';
+          $whatToShow .= '<span class="single-sm-heading">Keys</span><br/>';
+          $whatToShow .= types_render_field("keys");
+          $whatToShow .= "</p>";
+        }
+        // Display "units"
+        if (types_render_field("units")) {
+          $whatToShow .= '<p class="single-dynamic">';
+          $whatToShow .= '<span class="single-sm-heading">Units</span><br/>';
+          $whatToShow .= types_render_field("units");
+          $whatToShow .= "</p>";
+        }
         // Display square feet
         if (types_render_field("sf")) {
           $whatToShow .= '<p class="single-dynamic">';
@@ -128,15 +133,25 @@ function ms_block_render($attr, $content)
           $whatToShow .= types_render_field("sf");
           $whatToShow .= "</p>";
         }
-        // Display "units"
+        $whatToShow .= "</div>";
+        $whatToShow .= "<div>";
+        // Display transaction value
         $whatToShow .= '<p class="single-dynamic">';
-        $whatToShow .= '<span class="single-sm-heading">Units</span><br/>';
-        $whatToShow .= types_render_field("units");
+        $whatToShow .=
+          '<span class="single-sm-heading">Transaction Value</span><br/>';
+        $whatToShow .= "$" . types_render_field("transaction-value");
         $whatToShow .= "</p>";
-
+        // Display "type"
+        if (types_render_field("deal-type")) {
+          $whatToShow .= '<p class="single-dynamic">';
+          $whatToShow .= '<span class="single-sm-heading">Type</span><br/>';
+          $whatToShow .= types_render_field("deal-type");
+          $whatToShow .= "</p>";
+        }
+        $whatToShow .= "</div>";
         // End .details-highlights
         $whatToShow .= "</div>";
-        // End .details-right
+        // End .details--right
         $whatToShow .= "</div>";
 
         $whatToShow .= "</div>";
